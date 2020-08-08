@@ -108,5 +108,4 @@ for i in range(LEN_SAFE_SPACE):
 
 
 ''' OUTPUT '''
-print(LEN_SAFE_SPACE, min_count, LEN_NEW_WALL)
 print(LEN_SAFE_SPACE - min_count - LEN_NEW_WALL)
