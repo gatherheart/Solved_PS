@@ -1,10 +1,15 @@
 import heapq 
+import sys 
 
 '''MACRO'''
 INF = 0xFFFFFFFF
 NO_EDGE_WEIGHT = 0
+HASH_MAX_SIZE = 300000
+
 '''VARIABLES'''
 #  (1≤V≤20,000, 1≤E≤300,000) 
+# 4 Bytes * 20000 * 20000 = 1,600,000,000 Bytes = 1600 MB - Full Vertex Array Size
+# 4 Bytes * 300,000 = 1,200,000 = 1.2 MB  - Edge Array Size
 # # of Vertex, # of Edge, Starting vertice
 V, E, K = 0, 0, 0
 
@@ -18,9 +23,9 @@ def print_arr(_arr, N, M):
 
 def dijkstra_sp(K, arr):
 
-    _V = len(arr[0]) - 1
+    _V = len(arr) - 1
     # dist = (weight, vertex_index)
-    dist = [(INF, i) for i in range(V+1)]
+    dist = [(INF, i) for i in range(_V+1)]
     
     dist[K] = (0, K)
     heap = [dist[K]]
@@ -29,9 +34,7 @@ def dijkstra_sp(K, arr):
     while heap:
         weight, curr = heapq.heappop(heap)
         
-        for _next in range(1, _V+1):
-            if arr[curr][_next] == NO_EDGE_WEIGHT:
-                continue
+        for _next in arr[curr].keys():
             
             # Relaxation
             _next_weight = dist[_next][0]
@@ -45,16 +48,16 @@ def dijkstra_sp(K, arr):
 
 '''INPUT'''
 
-line = input().split(" ")
+line = sys.stdin.readline().split(" ")
 V, E = int(line[0]), int(line[1])
-K = int(input())
-arr = [[0 for _ in range(V+1)] for _ in range(V+1)]
+K = int(sys.stdin.readline())
+arr = [{} for _ in range(V+1)]
 
 for i in range(E):
-    line = input().split(" ")
+    line = sys.stdin.readline().split(" ")
     # (u, v, w)
     u, v, w = list(map(int, line))
-    arr[u][v] = w
+    arr[u][v] = w if v not in arr[u] or w < arr[u][v] else arr[u][v]
 
 '''COMPUTE'''
 
