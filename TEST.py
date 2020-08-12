@@ -1,7 +1,7 @@
-import itertools
+test = [i for i in range(255)]
 
-inp = [2,4, 5,3,1,5]
+test[ord('A')] = 10
 
-print(list(itertools.combinations(inp, 2)))
+print(test[ord('A')])
 
-print(list(itertools.permutations(inp, 2)))   
+print(ord('A'))

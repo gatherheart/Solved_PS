@@ -71,6 +71,9 @@ CASE 1. Normal Case ->
                 4 6
                 a t c i s w
 
+                3 5
+                a e c d f
+
 CASE 2. Scarce vowels ->
                 4 6
                 t c s w b d
