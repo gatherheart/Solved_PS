@@ -1,11 +1,13 @@
 import sys 
-
+import math
 '''MACROS'''
 
 '''VARIABLES'''
 # 3.pow(2k) = (3, 6, 12, 24, 48, ...) (k ≤ 10)
 N = 3
 arr = []
+tree = ["  *   ", " * *  ", "***** "]
+
 '''UTILS'''
 '''
 @Params 
@@ -15,36 +17,28 @@ h: int = current height (0 <= h <= N)
 
 def draw_tree(arr):
     for row in arr:
-        sys.stdout.write("".join(row)+'\n')
+        print(row)
     return
 
-def traverse(N, h, vertex_pos, arr):
-    # BASE CASE    
-    if h >= N:
-        return
+def append_two_tree(tree, shift):
+    len_tree = len(tree)
+    for i in range(len_tree):
+        tree.append(tree[i]+tree[i])
+        tree[i] = " " * shift + tree[i] + " " * shift
 
-    if arr[h][vertex_pos] == " ":
-        arr[h][vertex_pos] = "*"
-        arr[h+1][vertex_pos-1], arr[h+1][vertex_pos+1] = "*", "*"
-        arr[h+2][vertex_pos-2:vertex_pos+3] = ["*"]*5
-    else:
-        arr[h][vertex_pos] = " "
-        arr[h+1][vertex_pos-1], arr[h+1][vertex_pos+1] = " ", " "
-        arr[h+2][vertex_pos-2:vertex_pos+3] = [" "]*5
-
-    
-    # height = 0 3 6 12 24 ...
-    # vertex_pos = 24 (21, 27) ((19), (30)) ((13), (25)) ((24), (36))
-    traverse(N, h+3, vertex_pos-3, arr)
-    traverse(N, h+3, vertex_pos+3, arr)
+    return
 
 '''INPUT'''
 
 N = int(sys.stdin.readline())
-arr = [[" " for _ in range(2*N - 1)] for _ in range(N)]
+K = int(math.log(N // 3, 2))
 
 '''COMPUTE'''
-traverse(N, 0, N-1, arr)
-draw_tree(arr)
+
+for i in range(K):
+    # shift = 21 18 12
+    append_two_tree(tree, int(3 * math.pow(2, i)))
+
 
 '''OUTPUT'''
+draw_tree(tree)

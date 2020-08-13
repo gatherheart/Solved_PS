@@ -1,7 +1,6 @@
-test = [[j for j in range(10)] for i in range(5)]
+test = [[1,2], [3,4]]
 
-print(test)
-
-test[1][2:4] = [-1, -1]
+for i in range(len(test)):
+    test[i] = [-1, -1]
 
 print(test)
