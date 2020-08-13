@@ -1,7 +1,7 @@
-test = [i for i in range(255)]
+test = [[j for j in range(10)] for i in range(5)]
 
-test[ord('A')] = 10
+print(test)
 
-print(test[ord('A')])
+test[1][2:4] = [-1, -1]
 
-print(ord('A'))
+print(test)
