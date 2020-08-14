@@ -27,10 +27,7 @@ def is_overflow(x, y, M, N):
 def is_downhill(x, y, new_x, new_y, arr):
     return arr[x][y] > arr[new_x][new_y]
 
-def is_visited(x, y, visited):
-    return visited[x][y]
-
-def DFS(curr, M, N, arr, cache, visited):
+def DFS(curr, M, N, arr, cache):
 
     x, y = curr
     count = 0
@@ -47,15 +44,12 @@ def DFS(curr, M, N, arr, cache, visited):
         new_x = x + OFFSET[dir][0]
         new_y = y + OFFSET[dir][1]
 
-        # Pass uphill road, the place where cannot reach, or already visited
+        # Pass uphill road, the place where cannot reach
         if is_overflow(new_x, new_y, M, N) \
-            or not is_downhill(x, y, new_x, new_y, arr) \
-            or is_visited(new_x, new_y, visited):
+            or not is_downhill(x, y, new_x, new_y, arr):
             continue
 
-        visited[x][y] = True
-        count += DFS((new_x, new_y), M, N, arr, cache, visited)
-        visited[x][y] = False
+        count += DFS((new_x, new_y), M, N, arr, cache)
         cache[x][y] = count
         
     return count
@@ -67,12 +61,11 @@ for i in range(M):
     arr.append(list(map(int, sys.stdin.readline().split())))
 
 
-visited = [[False for j in range(N)] for i in range(M)]
 cache = [[CACHE_DEFAULT_VALUE for j in range(N)] for i in range(M)]
 
 '''COMPUTE'''
 
-ret = DFS(START_POSTIION, M, N, arr, cache, visited)
+ret = DFS(START_POSTIION, M, N, arr, cache)
 
 print(ret)
 
