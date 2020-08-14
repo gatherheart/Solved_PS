@@ -1,7 +1,7 @@
 import sys 
 
 '''MACROS'''
-
+INF = 0xFFFFFFFF
 OFFSET = [[-1, 0], [0, 1], [1, 0], [0, -1]]
 PASSED = -1
 BLANK = 0
@@ -53,8 +53,6 @@ def BFS(start, N, M, arr):
     while queue:
         # chance used -> false: 0, true: 1
         x, y, used = queue.pop(0)
-        if x == N - 1 and y == M - 1:
-            return -visited[x][y][used]
 
         for dir in range(len(OFFSET)):
             new_x = x + OFFSET[dir][0]
@@ -72,7 +70,7 @@ def BFS(start, N, M, arr):
                 visited[new_x][new_y][used] = visited[x][y][used] - 1
                 queue.append((new_x, new_y, used))
 
-    return -1
+    return visited
 
 '''INPUT'''
 
@@ -86,9 +84,15 @@ for i in range(N):
 
 ret = BFS(START_POSITION, N, M, arr)
 
-'''OUTPUT'''
+# Penalty if not reached
+ret[N-1][M-1][CHANCE_UNUSED] = -INF if ret[N-1][M-1][CHANCE_UNUSED] == 0 else ret[N-1][M-1][CHANCE_UNUSED]
+ret[N-1][M-1][CHANCE_USED] = -INF if ret[N-1][M-1][CHANCE_USED] == 0 else ret[N-1][M-1][CHANCE_USED]
 
-print(ret)
+result = -max(ret[N-1][M-1][CHANCE_UNUSED], ret[N-1][M-1][CHANCE_USED])
+result = -1 if result == INF else result
+
+'''OUTPUT'''
+print(result)
 
 '''
 
