@@ -2,7 +2,7 @@ print("Hello world")
 
 import sys 
 
-'''MACROS'''
+'''CONSTANTS'''
 
 '''VARIABLES'''
 

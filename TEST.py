@@ -1,9 +1,31 @@
+from collections import deque 
+import sys 
+for tc in range(int(sys.stdin.readline())): 
+    v, e = map(int, sys.stdin.readline().split()) 
+    link = [[] for _ in range(v+1)] 
+    for _ in range(e): 
+        a, b = map(int, sys.stdin.readline().split()) 
+        link[a].append(b) 
+        link[b].append(a) 
+        color = [0] * (v+1) 
+        STOP = False 
+        for i in range(1, v+1): 
+            if STOP: 
+                break 
+            if color[i] > 0: 
+                continue 
+            color[i] = 1 
+            queue = deque([i]) 
+            while queue and not STOP: 
+                q = queue.popleft() 
+                c = 3 - color[q] 
+                for l in link[q]: 
+                    if color[l] == 0: 
+                        color[l] = c 
+                        queue.append(l) 
+                    elif color[l] == color[q]: 
+                        STOP = True 
+                        break 
+                    
+    print("YES" if not STOP else "NO")
 
-
-
-for i in range(50):
-    for j in range(100-i-1, 50-i-1, -1):
-        print(j, end=" ")
-    print()
-
-# 50 49 48 47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1
