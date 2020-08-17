@@ -1,3 +1,8 @@
-tree = ["  *   ", " * *  ", "***** "]
+test = [[1,2], [3, 4]]
 
-print(tree+tree)
+test2 = [*test]
+test3 = test[:]
+
+test[0][0] = -1
+print(test2)
+print(test3)
