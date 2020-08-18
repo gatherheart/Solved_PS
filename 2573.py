@@ -48,6 +48,7 @@ def melt_ice(N, M, arr):
     start = get_ice_position(N, M, arr)
     original_arr = [row[:] for row in arr]
     visited = [[False for j in range(M)] for i in range(N)]
+    visited[start[0]][start[1]] = True
 
     if start == NO_ICE:
         return 0
@@ -57,10 +58,6 @@ def melt_ice(N, M, arr):
 
     while stack:
         x, y = stack.pop()
-        if visited[x][y]:
-            continue
-        
-        visited[x][y] = True
 
         num_of_water = get_num_of_water(x, y, original_arr)
         arr[x][y] = max(arr[x][y] - num_of_water, 0)
@@ -78,6 +75,7 @@ def melt_ice(N, M, arr):
                 continue
 
             stack.append((new_x, new_y))
+            visited[new_x][new_y] = True
 
     return count
 
@@ -86,14 +84,10 @@ def is_divided(start, num_of_ice, N, M, arr):
     stack = [start]
     count = 0
     visited = [[False for j in range(M)] for i in range(N)]
+    visited[start[0]][start[1]] = True
 
     while stack:
         x, y = stack.pop()
-
-        if visited[x][y]:
-            continue
-
-        visited[x][y] = True
         count += 1
 
         for _dir in range(len(OFFSET)):
@@ -106,6 +100,7 @@ def is_divided(start, num_of_ice, N, M, arr):
                 continue
 
             stack.append((new_x, new_y))
+            visited[new_x][new_y] = True
 
     return count != num_of_ice
 
