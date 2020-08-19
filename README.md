@@ -12,4 +12,8 @@
 
 11404 -> Floyd Warshall 
 
-**1261 -> -> HARD Points = BFS + Dijkstra + DP
+**1261 -> HARD Points = BFS + Dijkstra + DP
+
+2580 -> Sudoku -> Get Leftmost TopMost position
+
+*15685 -> Recurring rule & Cache
