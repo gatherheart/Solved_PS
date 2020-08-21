@@ -1,14 +1,15 @@
 
-a = 10
-def test():
-  
-    tt = [1]
-    print(a)
-    print(tt)
+
+test = [1, 2, 3, 4, 5]
+
+print([0] + test)
 
 
-test()
-print(a)
-a = 10
-print(a)
-test()
+if -1:
+  print(-1)
+
+if 1:
+  print(1)
+
+if 0:
+  print(0)
