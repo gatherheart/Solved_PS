@@ -37,7 +37,7 @@ def check_cycles(n, arr):
     return n - incycle.count(IN_CYCLE)
 
 '''INPUT'''
-'''COMPUTE'''
+'''COMPUTE'''   
 '''OUTPUT'''
 
 T = int(sys.stdin.readline())

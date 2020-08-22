@@ -1,15 +1,16 @@
+from collections import deque
 
+test = deque([1])
 
-test = [1, 2, 3, 4, 5]
+test.appendleft(0)
+print(test)
 
-print([0] + test)
+test.append(-1)
 
+print(test)
 
-if -1:
-  print(-1)
+test.popleft()
+print(test)
+test.pop()
 
-if 1:
-  print(1)
-
-if 0:
-  print(0)
+print(test)
