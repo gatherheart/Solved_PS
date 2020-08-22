@@ -17,7 +17,7 @@ import sys
 '''OUTPUT'''
 
 
-
+sys.setrecursionlimit(10000)
 
 
 def print_arr(_arr, N, M):
