@@ -4,7 +4,6 @@ import heapq
 '''CONSTANTS'''
 
 INF = sys.maxsize
-END_OF_GRAPH = []
 
 '''VARIABLES'''
 # N(1 ≤ N ≤ 32,000)
