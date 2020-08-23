@@ -1,16 +1,13 @@
 from collections import deque
+import heapq
 
-test = deque([1])
+test = [(4, 2), (4, 1), (1, 2), (3, 4), (4, 0)]
 
-test.appendleft(0)
-print(test)
+heapq.heapify(test)
 
-test.append(-1)
 
-print(test)
+print(heapq.heappop(test))
 
-test.popleft()
-print(test)
-test.pop()
-
-print(test)
+print(heapq.heappop(test))
+print(heapq.heappop(test))
+print(heapq.heappop(test))
