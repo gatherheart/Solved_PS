@@ -12,7 +12,7 @@
 
 11404 -> Floyd Warshall 
 
-**1261 -> BFS + Dijkstra + DP
+**1261, *1504 -> BFS + Dijkstra + DP
 
 2580 -> Sudoku -> Get Leftmost TopMost position
 
@@ -20,5 +20,4 @@
 
 *1967 -> Tree Traversal PostOrder
 
-*2252 -> Topological Sort
-
+*2252, *1766 -> Topological Sort
