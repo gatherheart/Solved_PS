@@ -1,40 +1,38 @@
-INF = 0xFFFFFFFF
+PAREN_OPEN = '('
+PAREN_CLOSE = ')'
+ERROR = -1
 
-def flush(result, compressed):
-    for compressed_key in compressed:
-        occurence = str(compressed[compressed_key]) if compressed[compressed_key] != 1 else ""
-        result += occurence + compressed_key
+def solution(p):
+    answer = ''
+    stack = [ERROR]
+    parens = list(p)
+    error = []
+    result = ""
     
-    compressed.clear()
-    return result
-
-def solution(s):
-    answer = INF
-    prev_key = ""
-    len_of_string = len(s)
-    
-    for unit in range(1, len_of_string + 1):
-        compressed = {}
-        result = ""
-        for i in range(0, len_of_string + 1 - unit, unit):
-            key = s[i:i+unit]
-            if key in compressed and prev_key == key:
-                compressed[key] += 1
-            elif not key in compressed and prev_key == key:
-                # rollback
-                len_of_prev = len(prev_key)
-                compressed[key] = 2
-            # Flush
-            elif prev_key != key:
-                result = flush(result, compressed)
-                
-            prev_key = key
+    for paren in parens:
+        if paren == PAREN_OPEN:
             
-        # Flush
-        result = flush(result, compressed)
-
-        result_length = INF if result == "" else len(result)
-        print(result)
-        answer = min(answer, result_length)
-
+            if error:
+                stack.append(paren)
+            else:
+                stack.append(paren)
+                result += PAREN_OPEN
+            
+            if len(stack) - 1 == len(error):
+                while stack[-1] != ERROR:
+                    result += stack.pop()
+                while error:
+                    result += error.pop()
+                    
+        elif paren == PAREN_CLOSE:
+            top = stack.pop()
+            # Error Case
+            if top == ERROR:
+                stack.append(ERROR)
+                error.append(paren)
+            # Normal Case
+            else:
+                result += PAREN_CLOSE
+                
+    answer = result    
     return answer

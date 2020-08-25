@@ -1,4 +1,4 @@
 test = "abadbd"
 
 
-print(test[10:])
+print(test[1:-1])
