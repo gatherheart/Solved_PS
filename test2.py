@@ -1,12 +1,13 @@
-from collections import defaultdict
+from itertools import permutations
+from itertools import product
+test = [1, 2, 3]
 
 
+for i in range(1, 10):
+    test = [i]
+    print('a', test)
+    for j in range(2, 3):
+        test = [1, 2]
 
-test = defaultdict(int)
+        print('b', test)
 
-print(test[0])
-
-print(ord('?'))
-print(ord('a'))
-
-print(ord('{') - ord('a'))

@@ -95,11 +95,11 @@ def solution(words, queries):
         if query[0] != QUESTION_MARK:
             result = word_tree.search(query)
             answer.append(result[1])
-            cache[query] = result
+            cache[query] = result[1]
         else:
             result = inv_word_tree.search(query[::-1])            
             answer.append(result[1])
-            cache[query] = result
+            cache[query] = result[1]
 
         
 
