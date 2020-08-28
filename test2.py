@@ -1,16 +1,12 @@
-test = 1
+from collections import defaultdict
 
 
-def tt():
-    global test
-    print("int tt", test)
-    test += 1
 
-print(test)
-tt()
+test = defaultdict(int)
 
-print(test)
+print(test[0])
 
-tt()
+print(ord('?'))
+print(ord('a'))
 
-print(test)
+print(ord('{') - ord('a'))

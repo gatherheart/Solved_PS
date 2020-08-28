@@ -1,157 +1,115 @@
-BEAM = 1
-PILLAR = 0
-BEAM_AND_PILLAR = 2
-EMPTY = -1
-CREATE = 1
-DELETE = 0
+from collections import defaultdict
 
-def print_arr(_arr, N, M):
-    for i in range(N):
-        for j in range(M):
-            print("{:3}".format(_arr[i][j]), end=" ")
-        print()
+QUESTION_MARK = "?"
 
-def is_overflow(x, y, N, M):
-    return x < 0 or x >= N or y < 0 or y >= M
-    
-def is_safe(x, y, structure, command, n, arr):
-    
-    if structure == BEAM:
-        return is_safe_for_beam(x, y, command, n, arr)
-    elif structure == PILLAR:
-        return is_safe_for_pillar(x, y, command, n, arr)
-    
-    return False
+class TrieNode:
 
-def is_safe_for_beam(x, y, command, n, arr):
-    
-    if command == CREATE:
+    def __init__(self):
+        super().__init__()
+        self.childrens = [None] * 26
+        self.letter = ""
+        # classified by key length
+        self.counts = defaultdict(int)
+
+
+class Trie:
+
+    def __init__(self):
+        super().__init__()
+        self.root = self.getNode()
+
+    def getNode(self):
+        return TrieNode()
+
+    def _char_to_index(self, ch):
+        return ord(ch) - ord('a')
+
+    def insert(self, key):
+
+        pointer = self.root
+        len_of_key = len(key)
         
-        # Check under whether there is a pillar 
-        if arr[y - 1][x] == PILLAR or arr[y - 1][x] == BEAM_AND_PILLAR:
-            return True
+        for i in range(len_of_key):
+            index = self._char_to_index(key[i])
+
+            if not pointer.childrens[index]:
+                pointer.childrens[index] = self.getNode()    
+                pointer.childrens[index].letter = key[i]
+
+            pointer.counts[len_of_key] += 1            
+            pointer = pointer.childrens[index]
+
+    def search(self, key):
+
+        pointer = self.root
+        len_of_key = len(key)
+
+        for i in range(len_of_key):
+            index = self._char_to_index(key[i])
+
+            if key[i] == QUESTION_MARK:
+                return True, pointer.counts[len_of_key]
+
+            elif not pointer.counts[len_of_key]:
+                return False, 0
+            elif not pointer.childrens[index]:
+                return False, 0
+
+            pointer = pointer.childrens[index]
+
+        return True, pointer.counts[len_of_key]
+
+    def traverse(self, key):
+        pointer = self.root
+        len_of_key = len(key)
+        ret = ""
+
+        for i in range(len_of_key):
+            index = self._char_to_index(key[i])
+
+            if not pointer.childrens[index]:
+                return ret, pointer.count
+
+            pointer = pointer.childrens[index]
+            ret += pointer.letter 
+            
+        return ret, pointer.counts[len_of_key]
         
-        # check right under whether there is a pillar or not
-        if arr[y - 1][x + 1] == PILLAR or arr[y - 1][x + 1] == BEAM_AND_PILLAR:
-            return True
-        
-        # Check Both side Wether there are beams
-        if (not is_overflow(x - 1, y, n, n) and not is_overflow(x + 1, y, n, n)) and \
-            arr[y][x - 1] >= BEAM and arr[y][x + 1] >= BEAM:
-            return True
-        
-    elif command == DELETE:
-        # check right and current and up
-        tmp = arr[y][x] 
-        build_structure(x, y, BEAM, DELETE, n, arr)
-        ret = True
 
-        # Check Left Beam
-        if not is_overflow(x - 1, y, n, n) and arr[y][x - 1] >= BEAM:
-            ret = ret & is_safe_for_beam(x - 1, y, CREATE, n, arr)
-        
-        # Check Right Beam
-        if not is_overflow(x + 1, y, n, n) and arr[y][x + 1] >= BEAM:
-            ret = ret & is_safe_for_beam(x + 1, y, CREATE, n, arr)
-
-        # Check current Pillar
-        if arr[y][x] == PILLAR or arr[y][x] == BEAM_AND_PILLAR:
-            ret = ret & is_safe_for_pillar(x, y, CREATE, n, arr)
-
-        # Check Right Pillar
-        if not is_overflow(x + 1, y, n, n) and \
-            (arr[y][x + 1] == PILLAR or arr[y][x + 1] == BEAM_AND_PILLAR):
-            ret = ret & is_safe_for_pillar(x + 1, y, CREATE, n, arr)
-
-        arr[y][x] = tmp
-        return ret 
-    
-    return  False
-
-def is_safe_for_pillar(x, y, command, n, arr):
-    
-    if command == CREATE:
-
-        # is_floor
-        if y == 0:
-            return True
-        # is on other pillar
-        if arr[y - 1][x] == PILLAR or arr[y - 1][x] == BEAM_AND_PILLAR:
-            return True
-        # is end of left beam
-        if not is_overflow(x - 1, y, n, n) and arr[y][x - 1] >= BEAM:
-            return True
-        # is on a beam
-        if arr[y][x] == BEAM or arr[y][x] == BEAM_AND_PILLAR:
-            return True
-        
-    elif command == DELETE:
-        tmp = arr[y][x]
-        build_structure(x, y, PILLAR, DELETE, n, arr)
-        ret = True
-
-        # Check Pillar dependant on this pillar
-        if not is_overflow(x, y + 1, n, n) and \
-             (arr[y + 1][x] == PILLAR or arr[y + 1][x] == BEAM_AND_PILLAR):
-            ret = ret & is_safe_for_pillar(x, y + 1, CREATE, n, arr)
-
-        # Check up right Beam dependant on this pillar
-        if not is_overflow(x, y + 1, n, n) and \
-            arr[y + 1][x] >= BEAM:
-            ret = ret & is_safe_for_beam(x, y + 1, CREATE, n, arr)
-
-        # Check up left Beam dependant on this pillar
-        if not is_overflow(x - 1, y + 1, n, n) and \
-            arr[y + 1][x - 1] >= BEAM:
-            ret = ret & is_safe_for_beam(x - 1, y + 1, CREATE, n, arr)
-
-        arr[y][x] = tmp
-        return ret
-        
-    return False 
-
-def build_structure(x, y, structure, command, n, arr):
-    
-    if structure == PILLAR and command == CREATE:
-        arr[y][x] = PILLAR if arr[y][x] == EMPTY else BEAM_AND_PILLAR
-    elif structure == PILLAR and command == DELETE:
-        arr[y][x] = EMPTY if arr[y][x] == PILLAR else BEAM
-    elif structure == BEAM and command == CREATE:
-        arr[y][x] = BEAM if arr[y][x] == EMPTY else BEAM_AND_PILLAR
-    elif structure == BEAM and command == DELETE:
-        arr[y][x] = EMPTY if arr[y][x] == BEAM else PILLAR
-    
-def solution(n, build_frame):
+def solution(words, queries):
     answer = []
-    arr = [[EMPTY for j in range(n + 1)] for i in range(n + 1)]
-    
-    for build in build_frame:
-        x, y, structure, command = build
-    
-        if is_safe(x, y, structure, command, n + 1, arr):
-            build_structure(x, y, structure, command, n + 1, arr)
+    cache = defaultdict(int)
+    word_tree = Trie()
+    inv_word_tree = Trie()
+
+    for word in words:
+        word_tree.insert(word)
+        inv_word_tree.insert(word[::-1])
+
+    for query in queries:
+
+        if cache[query]:
+            answer.append(cache[query])
+            continue
+
+        if query[0] != QUESTION_MARK:
+            result = word_tree.search(query)
+            answer.append(result[1])
+            cache[query] = result
+        else:
+            result = inv_word_tree.search(query[::-1])            
+            answer.append(result[1])
+            cache[query] = result
+
         
 
-    for i in range(n + 1):
-        for j in range(n + 1):
-            if arr[i][j] == PILLAR:
-                answer.append([j, i, PILLAR])
-            elif arr[i][j] == BEAM:
-                answer.append([j, i, BEAM])
-            elif arr[i][j] == BEAM_AND_PILLAR:
-                answer.append([j, i, PILLAR])
-                answer.append([j, i, BEAM])
-    
-    answer.sort()
     return answer
 
 
-if __name__ == '__main__':
-    a = [
-        5,
-    ]
-    b = [
-        [[1, 0, 0, 1], [4, 0, 0, 1], [1, 1, 1, 1], [3, 1, 1, 1], [2, 1, 1, 1], [3, 1, 0, 1], [3, 0, 0, 1], [2, 1, 1, 0], [3, 1, 1, 0]]
-    ]
-    for x, y in zip(a, b):
-        print(solution(x, y))
+if __name__ == "__main__":
+    words = ["frodo", "front", "frost", "frozen", "frame", "kakao"]
+    queries = ["fro??", "????o", "fr???", "fro???", "pro?"]
+
+    print(solution(words, queries))
+    
+
