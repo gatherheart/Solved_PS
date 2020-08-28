@@ -1,13 +1,14 @@
-from itertools import permutations
-from itertools import product
-test = [1, 2, 3]
+from collections import defaultdict
+
+test = defaultdict(int)
+
+print(test[(1, 2)])
+
+test[((1, 2), (3, 4))] = 1
+
+print(test[((1, 2), (3, 4))])
 
 
-for i in range(1, 10):
-    test = [i]
-    print('a', test)
-    for j in range(2, 3):
-        test = [1, 2]
+x, y, z, w = ((1, 2), (3, 4))
 
-        print('b', test)
-
+print(x, y, z,  w)
