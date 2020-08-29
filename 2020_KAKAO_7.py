@@ -270,7 +270,6 @@ def solution_dfs(board):
 
     return DFS(start, 0, N, visited, board)
 
-
 if __name__ == "__main__":
     board = [[0, 0, 0, 1, 1],[0, 0, 0, 1, 0],[0, 1, 0, 1, 1],[1, 1, 0, 0, 1],[0, 0, 0, 0, 0]]	
     print(solution(board))
