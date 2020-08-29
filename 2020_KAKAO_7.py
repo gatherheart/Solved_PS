@@ -143,14 +143,13 @@ def rotate(pos, axis, clockwise):
                 new_left_y = left_y - 1
     
     new_pos = ((new_left_x, new_left_y), (new_right_x, new_right_y))
-    #print(pos, "=>", new_pos)
     
     return new_pos
 
 def BFS(board):
     start = (((0, 0), (0, 1)), 0)
     N = len(board)
-    #print(N)
+    print(N)
     queue = deque([start])
     time = -1
     visited = defaultdict(int)
@@ -207,12 +206,70 @@ def BFS(board):
 
     return -1
 
-def DFS():
-    return
+def DFS(pos, time, N, visited, board):
+
+    #print(pos, time)
+    _time = 0xFFFF
+    left, right = pos
+    left_x, left_y = left
+    right_x, right_y = right
+
+    if left_x == N - 1 and left_y == N - 1:
+        return time
+    elif right_x == N - 1 and right_y == N - 1:
+        return time
+
+    for _dir in range(len(OFFSET)):
+        new_left_x = left_x + OFFSET[_dir][0]
+        new_left_y = left_y + OFFSET[_dir][1]
+        new_right_x = right_x + OFFSET[_dir][0]
+        new_right_y = right_y + OFFSET[_dir][1]
+        new_pos = ((new_left_x, new_left_y), (new_right_x, new_right_y))
+        new_left, new_right = new_pos
+        
+        if is_overflow(*new_left, N, N) or \
+            is_overflow(*new_right, N, N) or \
+            board[new_left[0]][new_left[1]] == WALL or \
+            board[new_right[0]][new_right[1]] == WALL:
+                continue
+
+        if not visited[new_pos]:
+            visited[new_pos] = VISITED
+            _time = min(_time, DFS(new_pos, time + 1, N, visited, board))
+            visited[new_pos] = NOT_VISITED
+
+    for axis in range(2):
+        for clockwise in range(2):
+            if is_rotate_safe(pos, axis, clockwise==0, N, board):
+                new_pos = rotate(pos, axis, clockwise==0)
+                new_left, new_right = new_pos
+
+                if is_overflow(*new_left, N, N) or \
+                    is_overflow(*new_right, N, N) or \
+                    board[new_left[0]][new_left[1]] == WALL or \
+                    board[new_right[0]][new_right[1]] == WALL:
+                    continue
+                
+                if not visited[new_pos]:
+                    visited[new_pos] = VISITED
+                    _time = min(_time, DFS(new_pos, time + 1, N, visited, board))
+                    visited[new_pos] = NOT_VISITED
+
+    return _time
 
 def solution(board):
-    answer = BFS(board)
+    answer = solution_dfs(board)
     return answer
+
+
+def solution_dfs(board):
+    visited = defaultdict(int)
+    start = ((0, 0), (0, 1))
+    visited[start] = VISITED
+    N = len(board)
+
+    return DFS(start, 0, N, visited, board)
+
 
 if __name__ == "__main__":
     board = [[0, 0, 0, 1, 1],[0, 0, 0, 1, 0],[0, 1, 0, 1, 1],[1, 1, 0, 0, 1],[0, 0, 0, 0, 0]]	
