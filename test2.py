@@ -1,7 +1,14 @@
-_str=[1, 2, 3, 4]
-zip_str='a'
-for j in range(1,len(_str)+1):
-    print((_str[j:j+1]))
+cache = {'a': 2, 'c': 1, 'b': 1}
 
 
-print([] == _str[4:])
+def testf():
+    print(cache)
+    tt = list(cache.items())
+    tt.sort(key=lambda x: (x[1], x[0]))
+    print(tt)
+    
+print(cache)
+
+testf()
+
+print(cache)
