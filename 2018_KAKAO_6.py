@@ -17,8 +17,10 @@ def solution(lines):
 
     for line in lines:
         time, duration = line.split()[1:]
-        h_m_s_ms =  re.split(":|\.", time)
-        duration = int(float(duration.replace('s', '')) * S_TO_MS) 
+        h_m_s = re.search("([0-4][0-9]):([0-6][0-9]):([0-6][0-9])", time).groups()
+        ms = re.search("\.([0-9][0-9][0-9])", time).group(1)
+        h_m_s_ms = h_m_s + (ms, )
+        duration = int(float(duration[:-1]) * S_TO_MS) 
         end_time = convert_time(*list(map(int, h_m_s_ms)))
         start_time = end_time - duration + 1
         times.append((start_time, end_time))
