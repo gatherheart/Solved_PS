@@ -26,7 +26,6 @@ def solution(m, musicinfos):
         processed_m += pinch1
         
     #print(m, "m:", processed_m)
-    # 라디오에서 재생된 시간이 제일 긴 음악 제목을 반환한다
     for info in musicinfos:
         start, end, title, song = info.split(",")
         start = string_to_time(*list(map(int, start.split(":"))))
