@@ -15,3 +15,7 @@ list.pop(-1) == stack
 
 ## 5. Regex
 [https://www.w3schools.com/python/python_regex.asp]
+
+## 6. Variable's Name
+pos = x + OFFSET [o]
+pose = x + OFFSET [x]

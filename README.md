@@ -27,3 +27,5 @@
 2018_KAKAO_5.py -> Shallo Copy XXX
 
 2018_KAKAO_6.py -> end = datetime.datetime.strptime(" ".join(string_date[:2]), "%Y-%m-%d %H:%M:%S.%f")
+
+*2019_KAKAO_4.py -> heapq + Cumulative sum + lazy evaluation

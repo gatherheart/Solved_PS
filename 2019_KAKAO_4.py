@@ -1,26 +1,29 @@
 # 무지의 먹방 라이브
 
-from collections import deque
+import heapq
 
 def solution(food_times, k):
     answer = -1
-    remains = deque(list(map(lambda x: (x[1], x[0]+1), enumerate(food_times))))
-
+    remains = list(map(lambda x: (x[1], x[0]+1), enumerate(food_times)))
+    heapq.heapify(remains)
+    removed_foods = 0
+    
     while remains:
-        min_food, _ = min(remains)
+        
+        min_food, current = remains[0]
         len_of_remains = len(remains)
         #print(remains)
         #print(k, len_of_remains, min_food)
         
+        min_food -= removed_foods
+        
         if k < min_food * len_of_remains:
+            remains.sort(key=lambda x: x[1])
             return remains[k % len_of_remains][1]
     
         k = k - min_food * len_of_remains
-        for i in range(len_of_remains):
-            food, index = remains.popleft()
-            food -= min_food
-            if food != 0:
-                remains.append((food, index))
+        removed_foods += min_food
+        heapq.heappop(remains)
         
         #print("Removed", remains, k, min_food)
     
