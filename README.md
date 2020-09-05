@@ -29,3 +29,6 @@
 2018_KAKAO_6.py -> end = datetime.datetime.strptime(" ".join(string_date[:2]), "%Y-%m-%d %H:%M:%S.%f")
 
 *2019_KAKAO_4.py -> heapq + Cumulative sum + lazy evaluation
+
+*2019_KAKAO_6.py -> Regex   result = re.findall('\\b'+search+'\\b', text,  flags=re.IGNORECASE)
+[https://stackoverflow.com/questions/4173787/string-exact-match]
