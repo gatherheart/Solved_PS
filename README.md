@@ -10,6 +10,8 @@
 
 1197 -> MST(Kruskal) + DisjointSet
 
+2019_KAKAO_INTERN_5 -> DisjointSet + Compressed
+
 11404 -> Floyd Warshall 
 
 **1261, *1504 -> BFS + Dijkstra + DP
