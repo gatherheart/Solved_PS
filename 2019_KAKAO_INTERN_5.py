@@ -2,7 +2,6 @@ from collections import defaultdict
 import sys
 sys.setrecursionlimit(10000)
 
-
 class DisjoinSet:
     
     def __init__(self, items=[]):
