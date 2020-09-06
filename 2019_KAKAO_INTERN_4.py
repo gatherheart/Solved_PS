@@ -2,40 +2,37 @@ import heapq
 from collections import defaultdict
 def solution(stones, k):
     answer = 0
-    
+    bitmask = 0
     heap = [(remains, index) for index, remains in enumerate(stones)]
     
     disappeared = set()
     heapq.heapify(heap)
     cumulative = 0
     #print(heap)
-    while heap:
+    while heap: 
         min_stone, index = heapq.heappop(heap)
         #print(min_stone, index, cumulative)
         
         if min_stone <= cumulative:
-            disappeared.add(index)
-        
+            bitmask |= 1 << index
+            
         elif min_stone > cumulative:
             cumulative += min_stone - cumulative
-            disappeared.add(index)
+            bitmask |= 1 << index
             answer = cumulative
 
-        
-        disappeared_connected = True
-        for key in disappeared:
-            disappeared_connected = True
-            #print("KEY", key, end=" ")
-            for next_key in range(key+1, key+k):
-                #print(next_key, end=" ")
-                if not next_key in disappeared:
-                    disappeared_connected = False
-                    break
-            #print(disappeared_connected)
-            if disappeared_connected:
-                break
-        if disappeared_connected:
-            break
+        # check 
+        _bitmask = bitmask
+        #print(bin(_bitmask))
+        while _bitmask:
+            if _bitmask & 1:
+                mask = pow(2, k) - 1
+                #print(bin(_bitmask), bin(mask), bin(_bitmask & mask))
+                if _bitmask & mask == mask:
+                    return answer
+            
+            _bitmask = _bitmask >> 1
+            
     #print(disappeared)
         
     return answer
