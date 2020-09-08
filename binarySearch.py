@@ -1,3 +1,4 @@
+
 def binary_search_recursive(left, right, x, arr):
     
     print("LEFT", left, "RIGHT",right)
