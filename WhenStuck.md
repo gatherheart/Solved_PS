@@ -1,3 +1,5 @@
+## 0. !!! READ CAREFULLY !!!
+
 ## 1. Shallow Copy => Deep Copy
 board_copy = board [X]
 board_copy = board[:] [O]
@@ -19,3 +21,4 @@ list.pop(-1) == stack
 ## 6. Variable's Name
 pos = x + OFFSET [o]
 pose = x + OFFSET [x]
+
