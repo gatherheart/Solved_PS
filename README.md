@@ -32,7 +32,7 @@
 
 *2019_KAKAO_4.py -> heapq + Cumulative sum + lazy evaluation
 
-*2019_KAKAO_6.py -> Regex   result = re.findall('\\b'+search+'\\b', text,  flags=re.IGNORECASE)
+*2019_KAKAO_6.py -> Regex result = re.findall('\\b'+search+'\\b', text,  flags=re.IGNORECASE)
 [https://stackoverflow.com/questions/4173787/string-exact-match]
 
 *2019_KAKAO_INTERN_4_2.py -> Binary Search 
