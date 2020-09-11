@@ -1,5 +1,3 @@
-for i in range(10):
-    print('a')
-    
-    
-print(i)
+
+if "abcdef123" < "abcdef234":
+    print("HELLOWORLD")
