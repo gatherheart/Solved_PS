@@ -1,3 +1,27 @@
+test = set()
 
-if "abcdef123" < "abcdef234":
-    print("HELLOWORLD")
+
+test.add('a')
+
+print(test)
+
+
+test.add('b')
+
+print(test)
+
+test.add('a')
+
+print(test)
+
+test.add('b')
+
+print(test)
+
+test.add('c')
+
+print(test)
+
+test.add('d')
+
+print(test)

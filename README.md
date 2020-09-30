@@ -40,3 +40,5 @@
 *13460 -> two moving objects BFS
 
 16236 -> heapq high first, left second
+
+Prefix Sum, TSP, DP, Floyd, Tree DP, Shortest Path

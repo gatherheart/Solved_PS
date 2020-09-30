@@ -1,4 +1,5 @@
 ## 0. !!! READ CAREFULLY !!!
+Solve it by hand
 
 ## 1. Shallow Copy => Deep Copy
 board_copy = board [X]
