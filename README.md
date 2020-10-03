@@ -41,6 +41,11 @@
 
 16236 -> heapq high first, left second
 
-*2042 -> Segment Tree
+*2042, 2003_3 -> Segment Tree
+
+**1693 -> DP Tree
+
+2003 -> Two Pointer
+
 
 Prefix Sum, TSP, DP, Floyd, Tree DP, Shortest Path
