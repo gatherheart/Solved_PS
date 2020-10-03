@@ -58,13 +58,13 @@ if __name__ == "__main__":
     segTree = SegmentTree(a)
     print(segTree)
     # print the sum in range(1,2) index-based  
-    print(segTree.get_sum(0, n));  
+    print(segTree.get_sum(0, 7));  
       
     # modify element at 2nd index  
     segTree.update(2, 1);  
     print(segTree)
 
     # print the sum in range(1,2) index-based  
-    print(segTree.get_sum(0, n));  
+    print(segTree.get_sum(0, 7));  
       
 # This code is contributed by AnkitRai01 
