@@ -47,5 +47,8 @@
 
 2003 -> Two Pointer
 
+1005 -> DP + Topological Sort
+
+*11066 -> DP
 
 Prefix Sum, TSP, DP, Floyd, Tree DP, Shortest Path

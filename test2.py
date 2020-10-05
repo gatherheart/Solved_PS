@@ -1,9 +1,25 @@
-from collections import defaultdict
+import sys
+input = sys.stdin.readline
 
-test = defaultdict(int)
+t = int(input())
+for __ in range(t):
+    k = int(input())
+    page = list(map(int, input().split()))
+    
+    table = [[0]*k for _ in range(k) ]
+    for i in range(k-1):
+        table[i][i+1] = page[i] + page[i+1]
+        for j in range(i+2, k):
+            table[i][j] = table[i][j-1] + page[j]
 
-test[0] += 1
-test[1] += 1
-test[2] += 1
+    print(table)
+    for d in range(2, k): # diagonal
+        for i in range(k-d):
+            j = i+d
+            minimum = [table[i][k] + table[k+1][j] for k in range(i, j)]
+            table[i][j] += min(minimum)
 
-print(list(map(lambda x: (x[1], x[0]), test.items())))
+    print(table)
+    print(table[0][k-1])
+
+
