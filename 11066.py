@@ -29,8 +29,6 @@ for _ in range(T):
         for j in range(i+2, K):
             summed[i][j] = summed[i][j-1] + costs[j]
     
-    print(summed)
-
     for gap in range(1, K):
         for start in range(K-gap):
             end = start + gap

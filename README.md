@@ -49,6 +49,6 @@
 
 1005 -> DP + Topological Sort
 
-*11066 -> DP
+*11066, 1695 -> DP
 
 Prefix Sum, TSP, DP, Floyd, Tree DP, Shortest Path
