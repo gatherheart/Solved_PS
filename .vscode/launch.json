@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "CodeLens (Launch) - p20056",
+            "request": "launch",
+            "mainClass": "p20056",
+            "projectName": "Solved_2d4f3eb0"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - HelloWorld",
+            "request": "launch",
+            "mainClass": "HelloWorld",
+            "projectName": "Solved_2d4f3eb0"
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
