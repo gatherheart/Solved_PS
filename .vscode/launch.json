@@ -13,9 +13,16 @@
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - HelloWorld",
+            "name": "CodeLens (Launch) - p10942",
             "request": "launch",
-            "mainClass": "HelloWorld",
+            "mainClass": "p10942",
+            "projectName": "Solved_2d4f3eb0"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MyMainClass",
+            "request": "launch",
+            "mainClass": "MyMainClass",
             "projectName": "Solved_2d4f3eb0"
         },
         {
