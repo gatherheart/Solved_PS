@@ -6,23 +6,16 @@
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - p20056",
+            "name": "CodeLens (Launch) - p2169",
             "request": "launch",
-            "mainClass": "p20056",
+            "mainClass": "p2169",
             "projectName": "Solved_2d4f3eb0"
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - p10942",
+            "name": "CodeLens (Launch) - p2126",
             "request": "launch",
-            "mainClass": "p10942",
-            "projectName": "Solved_2d4f3eb0"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - MyMainClass",
-            "request": "launch",
-            "mainClass": "MyMainClass",
+            "mainClass": "p2126",
             "projectName": "Solved_2d4f3eb0"
         },
         {
