@@ -1,41 +1,86 @@
-import java.util.ArrayList; // import the ArrayList class
-import java.util.HashMap; // import the HashMap class
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
 
-interface OverWatch { // 인터페이스
-	void name(); // 추상 메소드
-	void lClick(); // 추상 메소드
-	void rClick(); // 추상 메소드
-	void shiftButton(); // 추상 메소드
-	void eButton(); // 추상 메소드
-	void qButton(); // 추상 메소드
-}
+class test {
+	private static final int[][] OFFSET = { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
 
-class Mei implements OverWatch { // 인터페이스 구현 클래스
-	public void name() { // 오버라이딩
-		System.out.println("이름 : 메이");
-	}
-	public void lClick() { // 오버라이딩
-	}
-	public void rClick() { // 오버라이딩
-		System.out.println("우클릭 : 고드름 투사체");
-	}
-	public void shiftButton() { // 오버라이딩
-		System.out.println("shift : 급속 빙결");
-	}
-	public void eButton() { // 오버라이딩
-		System.out.println("e : 빙벽");
-	}
-	public void qButton() { // 오버라이딩
-		System.out.println("q : 눈보라(궁극기)");
-	}
-}
+	private static void solution(int sizeOfMatrix, int[][] matrix) {
 
-public class test{
-  public static void main(String [] args){
-    OverWatch ow; // 인터페이스 객체 선언
-    ow = new Mei(); // 업캐스팅
-    ow.name();
+		ArrayList<Integer> answer = new ArrayList<Integer>();
+		StringBuilder sb = new StringBuilder();
 
-  }
+		for (int i = 0; i < sizeOfMatrix; i++) {
+			for (int j = 0; j < sizeOfMatrix; j++) {
+				if (matrix[i][j] == 1) {
+					ArrayList<int[]> queue = new ArrayList<int[]>();
+					matrix[i][j] = 0;
+					queue.add(new int[] { i, j });
+					int count = 1;
+
+					while (!queue.isEmpty()) {
+						int[] curr = queue.remove(0);
+						int x = curr[0], y = curr[1];
+
+						for (int dir = 0; dir < OFFSET.length; dir++) {
+							int newX = x + OFFSET[dir][0];
+							int newY = y + OFFSET[dir][1];
+							if (newX < 0 || newY < 0 || newX >= sizeOfMatrix || newY >= sizeOfMatrix)
+								continue;
+							else if (matrix[newX][newY] == 0)
+								continue;
+
+							count += 1;
+							matrix[newX][newY] = 0;
+							queue.add(new int[] { newX, newY });
+						}
+					}
+
+					answer.add(count);
+				}
+			}
+		}
+
+		Collections.sort(answer);
+		for (int i : answer) {
+			sb.append(i + " ");
+		}
+		if (sb.length() == 0) {
+			sb.append(0);
+		} else {
+			sb.delete(sb.length() - 1, sb.length());
+		}
+		System.out.println(sb);
+	}
+
+	private static class InputData {
+		int sizeOfMatrix;
+		int[][] matrix;
+	}
+
+	private static InputData processStdin() {
+		InputData inputData = new InputData();
+
+		try (Scanner scanner = new Scanner(System.in)) {
+			inputData.sizeOfMatrix = Integer.parseInt(scanner.nextLine().replaceAll("\\s+", ""));
+
+			inputData.matrix = new int[inputData.sizeOfMatrix][inputData.sizeOfMatrix];
+			for (int i = 0; i < inputData.sizeOfMatrix; i++) {
+				String[] buf = scanner.nextLine().trim().replaceAll("\\s+", " ").split(" ");
+				for (int j = 0; j < inputData.sizeOfMatrix; j++) {
+					inputData.matrix[i][j] = Integer.parseInt(buf[j]);
+				}
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+
+		return inputData;
+	}
+
+	public static void main(String[] args) throws Exception {
+		InputData inputData = processStdin();
+
+		solution(inputData.sizeOfMatrix, inputData.matrix);
+	}
 }
