@@ -11,3 +11,4 @@ print(test)
 
 test.popitem(last=False)
 print(test)
+test.move_to_end()

@@ -18,3 +18,13 @@ class LRUCache:
         self.cache.move_to_end(key)
         if len(self.cache) > self.capacity:
             self.cache.popitem(last=False)
+
+
+class LRUCache:
+
+    def __init__(self) -> None:
+
+        return
+
+
+test = LRUCache()
